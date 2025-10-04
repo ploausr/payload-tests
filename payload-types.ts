@@ -164,11 +164,12 @@ export interface Media {
  */
 export interface CommercialProposal {
   id: number;
-  title: string;
-  slug: string;
+  title?: string | null;
+  slug?: string | null;
   status?: ('draft' | 'published') | null;
-  hero: {
-    title: string;
+  hero?: {
+    enabled?: boolean | null;
+    title?: string | null;
     subtitle?: string | null;
     description?: {
       root: {
@@ -185,23 +186,25 @@ export interface CommercialProposal {
       };
       [k: string]: unknown;
     } | null;
-    image: number | Media;
+    image?: (number | null) | Media;
     ctaText?: string | null;
     ctaLink?: string | null;
   };
   partners?: {
+    enabled?: boolean | null;
     title?: string | null;
     logos?:
       | {
-          logo: number | Media;
-          name: string;
+          logo?: (number | null) | Media;
+          name?: string | null;
           link?: string | null;
           id?: string | null;
         }[]
       | null;
   };
-  valueProposition: {
-    title: string;
+  valueProposition?: {
+    enabled?: boolean | null;
+    title?: string | null;
     subtitle?: string | null;
     description?: {
       root: {
@@ -221,11 +224,12 @@ export interface CommercialProposal {
     image?: (number | null) | Media;
   };
   benefits?: {
+    enabled?: boolean | null;
     title?: string | null;
     items?:
       | {
-          title: string;
-          description: string;
+          title?: string | null;
+          description?: string | null;
           icon?: (number | null) | Media;
           highlight?: boolean | null;
           id?: string | null;
@@ -233,16 +237,17 @@ export interface CommercialProposal {
       | null;
   };
   paymentOptions?: {
+    enabled?: boolean | null;
     title?: string | null;
     options?:
       | {
-          title: string;
-          description: string;
-          price: string;
+          title?: string | null;
+          description?: string | null;
+          price?: string | null;
           discount?: string | null;
           features?:
             | {
-                feature: string;
+                feature?: string | null;
                 id?: string | null;
               }[]
             | null;
@@ -254,20 +259,22 @@ export interface CommercialProposal {
       | null;
   };
   testimonials?: {
+    enabled?: boolean | null;
     title?: string | null;
     items?:
       | {
-          name: string;
+          name?: string | null;
           company?: string | null;
-          testimonial: string;
+          testimonial?: string | null;
           avatar?: (number | null) | Media;
           rating?: number | null;
           id?: string | null;
         }[]
       | null;
   };
-  footer: {
-    companyName: string;
+  footer?: {
+    enabled?: boolean | null;
+    companyName?: string | null;
     description?: string | null;
     contact?: {
       email?: string | null;
@@ -276,8 +283,8 @@ export interface CommercialProposal {
     };
     socialLinks?:
       | {
-          platform: string;
-          url: string;
+          platform?: string | null;
+          url?: string | null;
           icon?: (number | null) | Media;
           id?: string | null;
         }[]
@@ -398,6 +405,7 @@ export interface CommercialProposalsSelect<T extends boolean = true> {
   hero?:
     | T
     | {
+        enabled?: T;
         title?: T;
         subtitle?: T;
         description?: T;
@@ -408,6 +416,7 @@ export interface CommercialProposalsSelect<T extends boolean = true> {
   partners?:
     | T
     | {
+        enabled?: T;
         title?: T;
         logos?:
           | T
@@ -421,6 +430,7 @@ export interface CommercialProposalsSelect<T extends boolean = true> {
   valueProposition?:
     | T
     | {
+        enabled?: T;
         title?: T;
         subtitle?: T;
         description?: T;
@@ -429,6 +439,7 @@ export interface CommercialProposalsSelect<T extends boolean = true> {
   benefits?:
     | T
     | {
+        enabled?: T;
         title?: T;
         items?:
           | T
@@ -443,6 +454,7 @@ export interface CommercialProposalsSelect<T extends boolean = true> {
   paymentOptions?:
     | T
     | {
+        enabled?: T;
         title?: T;
         options?:
           | T
@@ -466,6 +478,7 @@ export interface CommercialProposalsSelect<T extends boolean = true> {
   testimonials?:
     | T
     | {
+        enabled?: T;
         title?: T;
         items?:
           | T
@@ -481,6 +494,7 @@ export interface CommercialProposalsSelect<T extends boolean = true> {
   footer?:
     | T
     | {
+        enabled?: T;
         companyName?: T;
         description?: T;
         contact?:

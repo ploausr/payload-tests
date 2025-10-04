@@ -1,10 +1,9 @@
+import { getPayload } from "payload";
+import { notFound } from "next/navigation";
+import React from "react";
 
-import { getPayload } from 'payload'
-import { notFound } from 'next/navigation'
-import React from 'react'
-
-import config from '@/payload.config'
-import { CommercialProposal } from '@/payload-types'
+import config from "@/payload.config";
+import { CommercialProposal } from "@/payload-types";
 import {
   Hero,
   Partners,
@@ -12,17 +11,20 @@ import {
   Benefits,
   PaymentOptions,
   Testimonials,
-  Footer
-} from './components'
+  Footer,
+} from "./components";
 
-
-export default async function CommercialProposalPage({ params }: { params: { slug: string } }) {
-  const { slug } = await params
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
+export default async function CommercialProposalPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const payloadConfig = await config;
+  const payload = await getPayload({ config: payloadConfig });
 
   const proposals = await payload.find({
-    collection: 'commercial-proposals',
+    collection: "commercial-proposals",
     where: {
       and: [
         {
@@ -32,17 +34,17 @@ export default async function CommercialProposalPage({ params }: { params: { slu
         },
         {
           status: {
-            equals: 'published',
+            equals: "published",
           },
         },
       ],
     },
-  })
+  });
 
-  const proposal = proposals.docs[0] as CommercialProposal
+  const proposal = proposals.docs[0] as CommercialProposal;
 
   if (!proposal) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -55,24 +57,24 @@ export default async function CommercialProposalPage({ params }: { params: { slu
       <Testimonials data={proposal.testimonials} />
       <Footer data={proposal.footer} />
     </div>
-  )
+  );
 }
 
 export async function generateStaticParams() {
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
+  const payloadConfig = await config;
+  const payload = await getPayload({ config: payloadConfig });
 
   const proposals = await payload.find({
-    collection: 'commercial-proposals',
+    collection: "commercial-proposals",
     where: {
       status: {
-        equals: 'published',
+        equals: "published",
       },
     },
     limit: 100,
-  })
+  });
 
   return proposals.docs.map((proposal) => ({
     slug: proposal.slug,
-  }))
+  }));
 }
