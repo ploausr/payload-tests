@@ -1,0 +1,7 @@
+export { default as Hero } from './Hero'
+export { default as Partners } from './Partners'
+export { default as ValueProposition } from './ValueProposition'
+export { default as Benefits } from './Benefits'
+export { default as PaymentOptions } from './PaymentOptions'
+export { default as Testimonials } from './Testimonials'
+export { default as Footer } from './Footer'
